@@ -1,0 +1,84 @@
+package timeScreen;
+
+import java.util.Calendar;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
+
+public final class TimeScreen implements Listener {
+	@EventHandler
+	public void onJoin(PlayerJoinEvent i) {
+		
+		Player player = i.getPlayer();
+		Inventory PlayerInventory = player.getInventory();
+
+		ItemStack SummonStick = new ItemStack(Material.STICK);
+		ItemStack ClearStick = new ItemStack(Material.STICK);
+
+		ItemMeta SummonMeta = SummonStick.getItemMeta();
+		ItemMeta ClearMeta = ClearStick.getItemMeta();
+		SummonMeta.setDisplayName("SummonStick");
+		ClearMeta.setDisplayName("ClearStick");
+		SummonStick.setItemMeta(SummonMeta);
+		ClearStick.setItemMeta(ClearMeta);
+
+		PlayerInventory.addItem(SummonStick);
+		PlayerInventory.addItem(ClearStick);
+	}
+
+	@EventHandler
+	public void onQuit(PlayerQuitEvent i) {
+		i.getPlayer().getInventory().clear();
+
+	}
+
+	@EventHandler
+	public void onInteract(PlayerInteractEvent i) {
+     
+		if (i.getAction().equals(Action.RIGHT_CLICK_BLOCK) && i.getItem() != null
+				&& i.getItem().getType().equals(Material.STICK)) {
+			Block SummonBlock = i.getClickedBlock();
+            SummonBlock.setType(Material.DIAMOND_BLOCK);
+			double x = SummonBlock.getX() + 10;
+			double y = SummonBlock.getY() + 14;
+			double z = SummonBlock.getZ() - 17;//确定好了summonLocation
+World world=i.getPlayer().getWorld();
+			Location SummonLocation = new Location(i.getPlayer().getWorld(), x, y, z);
+			if (i.getItem().getItemMeta().getDisplayName().equals("SummonStick")) {
+				Flip flip = new Flip(SummonLocation,world);
+				Plugin pl = i.getPlayer().getServer().getPluginManager().getPlugin("TimeScreen");
+				Bukkit.getScheduler().scheduleSyncRepeatingTask(pl, flip, 0, 20);
+			} //summon
+			
+			
+			else if (i.getItem().getItemMeta().getDisplayName().equals("ClearStick")) {
+				Bukkit.getScheduler().cancelTasks(i.getPlayer().getServer().getPluginManager().getPlugin("TimeScreen"));
+				for (int e = 0; e < 35; e++) {
+
+					for (int j = 0; j < 7; j++) {
+						SummonLocation.setY(y - j);
+						SummonLocation.getBlock().setType(Material.AIR);
+
+					}
+					SummonLocation.setZ(z + e);
+				}
+
+			}
+		}
+	}
+
+}
