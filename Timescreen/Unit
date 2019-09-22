@@ -1,0 +1,64 @@
+package timeScreen;
+
+public class Unit {
+     boolean numUnit[][]=new boolean[5][7];
+     public Unit() {
+    	 
+     }
+     public Unit(int a) {
+    	 switch(a) {
+    	 case 1:{this.set3();this.set2();break;}
+    	 case 2:{this.set1();this.set2();this.set4();this.set5();this.set7();break;}
+    	 case 3:{this.set1();this.set2();this.set4();this.set3();this.set7();break;}
+    	 case 4:{this.set6();this.set7();this.set2();this.set3();break;}
+    	 case 5:{this.set1();this.set6();this.set7();this.set3();this.set4();break;}
+    	 case 6:{this.set1();this.set6();this.set7();this.set3();this.set4();this.set5();break;}
+    	 case 7:{this.set1();this.set2();this.set3();break;}
+    	 case 8:{this.set1();this.set6();this.set7();this.set3();this.set4();this.set5();this.set2();break;}
+    	 case 9:{this.set1();this.set6();this.set7();this.set3();this.set4();this.set2();break;}
+    	 case 0:{this.set1();this.set6();this.set3();this.set4();this.set5();this.set2();break;}
+    	 }
+     }
+     
+     public boolean[][] getArray(){
+    	 return numUnit	;
+     }
+     
+     
+	public void set1() {
+		numUnit[1][0] = true;
+		numUnit[2][0] = true;
+	}
+
+	public void set2() {
+		numUnit[3][1] = true;
+		numUnit[3][2] = true;
+	}
+
+	public void set3() {
+		numUnit[3][4] = true;
+		numUnit[3][5] = true;
+	}
+
+	public void set4() {
+		numUnit[1][6] = true;
+		numUnit[2][6] = true;
+	}
+
+	public void set5() {
+		numUnit[0][4] = true;
+		numUnit[0][5] = true;
+	}
+
+	public void set6() {
+		numUnit[0][1] = true;
+		numUnit[0][2] = true;
+	}
+
+	public void set7() {
+		numUnit[1][3] = true;
+		numUnit[2][3] = true;
+	}
+
+     
+}
