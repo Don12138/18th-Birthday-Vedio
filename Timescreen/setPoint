@@ -1,0 +1,36 @@
+package timeScreen;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
+
+public class setPoint {
+public setPoint() {
+	
+}
+
+	public setPoint(Location SummonLocation) {
+		double y = SummonLocation.getY();
+		double z = SummonLocation.getZ();
+
+
+		for (int j = 0; j < 7; j++) {
+			SummonLocation.setY(y - j);
+			if(j==2||j==4) {
+				SummonLocation.getBlock().setType(Material.REDSTONE_BLOCK);
+			}else
+			SummonLocation.getBlock().setType(Material.QUARTZ_BLOCK);
+
+		}
+		z++;
+		SummonLocation.setZ(z);
+		SummonLocation.setY(y);
+		for (int j = 0; j < 7; j++) {
+			SummonLocation.setY(y - j);
+			SummonLocation.getBlock().setType(Material.QUARTZ_BLOCK);
+
+		}
+		z++;
+		SummonLocation.setZ(z);
+		SummonLocation.setY(y);
+	}
+}
