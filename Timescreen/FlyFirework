@@ -1,0 +1,62 @@
+package timeScreen;
+
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
+import org.bukkit.inventory.meta.FireworkEffectMeta;
+import org.bukkit.inventory.meta.FireworkMeta;
+
+public class FlyFirework {
+	private int count ;
+	public FireworkMeta RandomMeta(Firework c) {
+		FireworkMeta a = c.getFireworkMeta();
+		
+		a.addEffect(FireworkEffect.builder()
+		        .flicker(true)
+		        .trail(true)
+				.withColor(Color.YELLOW)
+				.withFade(Color.RED)
+				.with(FireworkEffect.Type.BURST)
+				.build());
+
+		 
+		        a.setPower(0);
+	
+		return a ;
+	}
+	
+	
+	public FlyFirework(Location SummonLocation,int count) {
+this.count=count;
+		
+		World world=SummonLocation.getWorld();
+		double x =SummonLocation.getX();
+		double z=SummonLocation.getZ();
+		double y=SummonLocation.getY()+1;
+		 Location cur=new Location(world,x,y,z);
+		for (int i = 0; i <= 34; i++) {
+
+			if(i==4*count)
+			{
+				if(count%2==0) {
+				Firework a = cur.getWorld().spawn(cur, Firework.class);
+				a.setFireworkMeta(this.RandomMeta(a));
+				}
+				else
+				{
+					Firework a = cur.getWorld().spawn(cur, Firework.class);
+				}
+					
+			}
+				z++;
+				cur.setZ(z);
+		}
+		
+	}
+	
+
+}
