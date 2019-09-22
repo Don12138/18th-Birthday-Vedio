@@ -1,0 +1,64 @@
+package timeScreen;
+
+import java.util.Calendar;
+
+import org.bukkit.Location;
+import org.bukkit.World;
+
+public class Flip implements Runnable {
+	private Location InitialLocation;
+	private World world;
+	public Flip(Location SummonLocation,World world) {
+		this.InitialLocation = SummonLocation;
+		this.world=world;
+	}
+
+	public void run() {
+		Calendar c = Calendar.getInstance();
+		int chour = c.get(Calendar.HOUR_OF_DAY);
+		int cminute = c.get(Calendar.MINUTE);
+		int csecond = c.get(Calendar.SECOND);
+
+		String hour = this.beString(chour);
+		String minute = this.beString(cminute);
+		String second = this.beString(csecond);
+
+		int[] timenumber = new int[6];
+		timenumber[0] = Character.getNumericValue(hour.charAt(0));
+		timenumber[1] = Character.getNumericValue(hour.charAt(1));
+		timenumber[2] = Character.getNumericValue(minute.charAt(0));
+		timenumber[3] = Character.getNumericValue(minute.charAt(1));
+		timenumber[4] = Character.getNumericValue(second.charAt(0));
+		timenumber[5] = Character.getNumericValue(second.charAt(1));
+		
+		org.bukkit.World World=InitialLocation.getWorld();
+		  double x=InitialLocation.getX();
+		double y=InitialLocation.getY();
+		 double z=InitialLocation.getZ();
+
+
+		Location SummonLocationd=new Location(World, x, y, z);
+
+		for (int a = 0; a <6; a++) {
+			
+			if(timenumber[5]<=8&&timenumber[4]==0) {
+				new FlyFirework(InitialLocation,timenumber[5]);
+				world.setStorm(false);}
+			
+			if (a == 2 || a == 4) {
+				new setPoint(SummonLocationd);
+			}
+			new setTime(SummonLocationd, timenumber[a]);
+		}
+		
+		
+
+	}
+
+	public String beString(int a) {
+		if (a >= 10) {
+			return String.valueOf(a);
+		} else
+			return (0 + String.valueOf(a));
+	}
+}
