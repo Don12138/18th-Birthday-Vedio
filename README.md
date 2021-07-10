@@ -11,4 +11,4 @@ setTime makes screen show the time and setPoint makes screen show the points
 Flip makes Timescreen works each seconds
 
 
-Of course you can modify any file to meet your needs
+This is my video:https://dong12138-1301923173.cos.ap-nanjing.myqcloud.com/IMG_4642.mp4
